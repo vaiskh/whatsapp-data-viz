@@ -89,6 +89,7 @@ const getWordFrequency = (messageStrings) => {
 };
 
 const WordCloud = ({ allMsgs, userNames }) => {
+  console.log(userNames);
   const [selectedUser, setSelectedUser] = useState('');
   return (
     <div>
