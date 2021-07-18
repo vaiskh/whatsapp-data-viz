@@ -76,53 +76,6 @@ const SimpleBar = ({ userNames, userMessageCount }) => {
       .delay((d, i) => i * 100);
 
     svg.selectAll('g.tick').select('text').attr('class', 'simple-bar-label');
-
-    // // X axis
-    // const x = scaleBand().range([0, width]).domain(userNames).padding(0.2);
-    // svg
-    //   .append("g")
-    //   .attr("transform", `translate(0,${height})`)
-    //   .call(axisBottom(x).tickSize(0))
-    //   .attr("color", "grey")
-    //   .selectAll("text")
-    //   .attr("transform", "translate(-10,0)rotate(-45)")
-    //   .style("text-anchor", "end")
-    //   .style("color", "white")
-    //   .select(".domain")
-    //   .remove();
-    // // Add Y axis
-    // const y = scaleLinear()
-    //   .domain([0, max(userMessageCount, (d) => d.count)]) // set te domain maximum to be the largest number of messages
-    //   .range([height, 0]);
-    // svg
-    //   .append("g")
-    //   .call(axisLeft(y).tickSizeInner(-width))
-    //   .select(".domain")
-    //   .remove()
-    //   .attr("color", "grey")
-    //   .selectAll("text")
-    //   .style("color", "white");
-
-    // Bars
-    // svg
-    //   .selectAll("mybar")
-    //   .data(userMessageCount)
-    //   .join("rect")
-    //   .attr("x", (d) => x(d.userName))
-    //   .attr("width", x.bandwidth())
-    //   .attr("fill", (d, i) => myColor(i))
-    //   // no bar at the beginning thus:
-    //   .attr("height", (d) => height - y(0)) // always equal to 0
-    //   .attr("y", (d) => y(0));
-
-    // Animation
-    // svg
-    //   .selectAll("rect")
-    //   .transition()
-    //   .duration(800)
-    //   .attr("y", (d) => y(d.count))
-    //   .attr("height", (d) => height - y(d.count))
-    //   .delay((d, i) => i * 100);
   }, [userNames, userMessageCount, dimensions]);
 
   return (
