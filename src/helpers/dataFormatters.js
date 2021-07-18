@@ -58,7 +58,7 @@ const formatFileMessageData = (fileData) => {
       const [dateTime, textAndUser] = msg.split('M - ');
       const [user, text] = textAndUser ? textAndUser.split(':') : ['', ''];
       // push userName to list of alluserNames
-      if (!userNames.find((u) => u === user)) {
+      if (!userNames.find((u) => u === user) && user !== '') {
         userNames.push(user);
       }
       const type = 'User Message';
