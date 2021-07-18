@@ -1,0 +1,27 @@
+{
+    "extends": ["airbnb", "prettier"],
+    "plugins": ["prettier"],
+    "rules": {
+        "react/prop-types": "off",
+        "no-undef":"off",
+        "no-unused-vars":"warn",
+        "func-names": "off",
+        "prettier/prettier": [
+            "error",
+            {
+              "endOfLine": "auto"
+            }],
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "jsx-a11y/label-has-associated-control": [
+          "error",
+          {
+            "labelComponents": [],
+            "labelAttributes": [],
+            "controlComponents": [],
+            "assert": "either",
+            "depth": 25
+          }
+        ]
+    }
+}
