@@ -3,7 +3,8 @@ import { axisBottom, axisLeft, max, scaleBand, scaleLinear, select } from 'd3';
 import PropTypes from 'prop-types';
 import useResizeObserver from './hooks/useResizeObserver';
 
-const SimpleBar = ({ userNames, userMessageCount }) => {
+const SimpleBar = ({ userMessageCount }) => {
+  const userNames = userMessageCount.map((each) => each.userName);
   const graphWrapper = useRef();
   const svgRef = useRef();
   const dimensions = useResizeObserver(graphWrapper);
@@ -86,7 +87,6 @@ const SimpleBar = ({ userNames, userMessageCount }) => {
 };
 
 SimpleBar.propTypes = {
-  userNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   userMessageCount: PropTypes.arrayOf(
     PropTypes.shape({
       count: PropTypes.number,

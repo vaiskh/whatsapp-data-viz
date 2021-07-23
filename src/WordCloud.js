@@ -1,25 +1,7 @@
 import { useState } from 'react';
+import Select from 'react-select';
 import ReactWordcloud from 'react-wordcloud';
-import { COMMON_WORDS, STOP_WORDS } from './constants';
-
-const dummyWords = [
-  {
-    text: 'told',
-    value: 64,
-  },
-  {
-    text: 'mistake',
-    value: 11,
-  },
-  {
-    text: 'thought',
-    value: 16,
-  },
-  {
-    text: 'bad',
-    value: 17,
-  },
-];
+import { getWrdFrequency } from './helpers/dataFormatters';
 
 function getWordCloudComponent(words) {
   const options = {
@@ -40,71 +22,56 @@ function getWordCloudComponent(words) {
   return <ReactWordcloud words={words} options={options} />;
 }
 
-const filterCommonWords = (words) =>
-  words.filter(
-    (word) =>
-      !COMMON_WORDS.find((commonWord) => commonWord === word.trim()) &&
-      !STOP_WORDS.find((stopWord) => stopWord === word.trim())
+const getWordFrequency = (allMsgs, selectedUser) => {
+  let wordFreqObject = getWrdFrequency(allMsgs, selectedUser);
+  wordFreqObject = Object.entries(wordFreqObject).sort(
+    ([, valueA], [, valueB]) => valueB > valueA
   );
-
-const filterMessages = (allMessages, selectedUser) => {
-  let messages = [];
-  if (selectedUser === '') {
-    messages = allMessages.map((msg) => msg.text.trim());
-  } else {
-    allMessages.forEach((msg) => {
-      if (msg.user === selectedUser && msg.text) {
-        messages.push(msg.text.trim());
-      }
-    });
-  }
-  return messages;
+  wordFreqObject = wordFreqObject.slice(0, 2000);
+  return wordFreqObject.map(([text, value]) => ({ text, value }));
 };
 
-const getWordFrequency = (messageStrings) => {
-  if (messageStrings) {
-    let str = messageStrings.join(' ');
-    str = str.toLowerCase();
-    let allWords = str.split(' ');
-    allWords = filterCommonWords(allWords);
-    let returnObj = [];
-    allWords.forEach((word) => {
-      const trimmedWord = word.trim();
-      const uniqueWord = returnObj.find(
-        (uniqWord) => uniqWord.text === trimmedWord
-      );
-      if (uniqueWord) {
-        uniqueWord.value += 1;
-      } else {
-        returnObj.push({
-          text: trimmedWord,
-          value: 1,
-        });
-      }
-    });
-    returnObj = returnObj.filter((el) => el.text !== ''); // remove empty
-    return returnObj.sort((a, b) => b.value - a.value).slice(0, 2000);
-  }
-  return dummyWords;
-};
+const WordCloud = ({ allMsgs, userNames, isLoading }) => {
+  const [selectedUser, setSelectedUser] = useState({
+    label: 'All Members',
+    value: '',
+  });
+  let selectOptions = userNames.map((user) => ({ value: user, label: user }));
+  selectOptions = [
+    { value: '', label: 'All Members', isSelected: true },
+    ...selectOptions,
+  ];
 
-const WordCloud = ({ allMsgs, userNames }) => {
-  console.log(userNames);
-  const [selectedUser, setSelectedUser] = useState('');
+  const handleChange = (selectedOption, action) => {
+    if (action && action.action === 'clear') {
+      setSelectedUser({
+        label: 'All Members',
+        value: '',
+      });
+    } else {
+      setSelectedUser(selectedOption);
+    }
+  };
   return (
-    <div>
-      <select
-        value={selectedUser}
-        onChange={(e) => setSelectedUser(e.target.value)}
-      >
-        <option value="">All Members</option>
-        {userNames.map((userName) => (
-          <option value={userName}>{userName}</option>
-        ))}
-      </select>
-      {getWordCloudComponent(
-        getWordFrequency(filterMessages(allMsgs, selectedUser))
-      )}
+    <div className="p-4">
+      <Select
+        isClearable
+        isSearchable
+        isLoading={isLoading}
+        options={selectOptions}
+        className="w-full sm:w-1/4"
+        value={{ ...selectedUser }}
+        theme={(theme) => ({
+          ...theme,
+          borderRadius: 0,
+          colors: {
+            ...theme.colors,
+            primary: 'black',
+          },
+        })}
+        onChange={handleChange}
+      />
+      {getWordCloudComponent(getWordFrequency(allMsgs, selectedUser.value))}
     </div>
   );
 };

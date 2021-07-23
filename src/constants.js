@@ -17,6 +17,8 @@ const SYSTEM_MSG_INDICATORS = [
   'added',
   'left',
   "changed this group's settings",
+  'disappearing messages were turned',
+  'your security code',
 ];
 
 const COMMON_WORDS = [
