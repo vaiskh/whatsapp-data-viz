@@ -1,9 +1,32 @@
+const checkIfDDMMFormat = (dateString) => {
+  if (dateString && Number(dateString.split('/')[0]) > 12) {
+    return true;
+  }
+  return false;
+};
+
+const parseDate = (date, isDDMMFormat) => {
+  let dateString = date;
+  if (isDDMMFormat) {
+    const dateParts = dateString.split('/');
+    const dayPart = dateParts[0];
+    const monthPart = dateParts[1];
+    const restOfDate = dateParts[2];
+
+    dateString = `${monthPart}/${dayPart}/${restOfDate}`;
+  }
+  return new Date(dateString);
+};
+
 const ChatOverview = ({ isLoading, chatOverview, allMessages }) => {
+  const isDDMMDateFormat = allMessages.some((msg) =>
+    checkIfDDMMFormat(msg.dateTime)
+  );
   const startDate = allMessages.length
-    ? new Date(allMessages[0].dateTime).toDateString()
+    ? parseDate(allMessages[0].dateTime, isDDMMDateFormat).toDateString()
     : '';
   const endDate = allMessages.length
-    ? new Date(allMessages.pop().dateTime).toDateString()
+    ? parseDate(allMessages.pop().dateTime, isDDMMDateFormat).toDateString()
     : '';
   return (
     <div className=" border-b border-purple-200 pb-4 flex items-center">

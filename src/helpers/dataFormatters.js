@@ -2,7 +2,7 @@ import { COMMON_WORDS, STOP_WORDS, SYSTEM_MSG_INDICATORS } from '../constants';
 
 const parseMessage = (msg) => {
   const messageParseRegex = new RegExp(
-    /((?:1[012]|(?:[1-9]|0[1-9]))\/(?:3[01]|[21][0-9]|(?:[1-9]|0[1-9]))\/(?:[1-9][0-9]), (?:1[012]|[1-9]):(?:[0-5][0-9])(?: ?)(?:am|pm|AM|PM)) - (?:(?:(.*?): (.*))|(.*))/
+    /((?:3[01]|[21][0-9]|(?:[1-9]|0[1-9]))\/(?:3[01]|[21][0-9]|(?:[1-9]|0[1-9]))\/(?:[1-9][0-9]), (?:1[012]|[1-9]):(?:[0-5][0-9])(?: ?)(?:am|pm|AM|PM)) - (?:(?:(.*?): (.*))|(.*))/
   );
 
   const regexMatch = msg.match(messageParseRegex);
