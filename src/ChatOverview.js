@@ -1,3 +1,5 @@
+import { ThreeDots } from 'svg-loaders-react';
+
 const checkIfDDMMFormat = (dateString) => {
   if (dateString && Number(dateString.split('/')[0]) > 12) {
     return true;
@@ -51,12 +53,16 @@ const ChatOverview = ({ isLoading, chatOverview, allMessages }) => {
           </div>
         </div>
         <div className="text-xl sm:text-3xl font-heading tracking-wider text-textPrimary">
-          {isLoading ? 'Loading...' : chatOverview.totalMessageCount}
+          {isLoading ? (
+            <ThreeDots width="20" className="inline" />
+          ) : (
+            chatOverview.totalMessageCount
+          )}
         </div>
         <div className="text-xxs sm:text-xs">{`${startDate} - ${endDate}`}</div>
       </div>
       <div className="flex-1 text-center font-heading text-xl sm:text-3xl text-textPrimary">
-        {isLoading ? 'Loading..' : chatOverview.chatName}
+        {isLoading ? <ThreeDots width="20" /> : chatOverview.chatName}
       </div>
       <div className="flex-1 text-textPrimary">
         <div className="flex flex-col items-end">
@@ -77,7 +83,8 @@ const ChatOverview = ({ isLoading, chatOverview, allMessages }) => {
             </svg>
           </div>
           <div className="text-xl sm:text-2xl font-heading text-right">
-            {isLoading ? 'Loading...' : chatOverview.userCount} Users
+            {isLoading ? <ThreeDots width="20" /> : chatOverview.userCount}{' '}
+            Users
           </div>
         </div>
       </div>

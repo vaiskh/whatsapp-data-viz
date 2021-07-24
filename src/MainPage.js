@@ -1,13 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Audio, ThreeDots } from 'svg-loaders-react';
-import { formatFileData } from './helpers/dataFormatters';
 import ImportFileSteps from './ImportFileSteps';
 import SimpleBar from './SimpleBar';
 import WordCloud from './WordCloud';
 import ChatOverview from './ChatOverview';
+import WorkerBuilder from './worker-builder';
+import Worker from './workers/dataFormatter-worker';
+
+const webWorkerInstance = new WorkerBuilder(Worker);
 
 const MainPage = () => {
   const [formattedData, setFormattedData] = useState({ fileSelected: false });
+  useEffect(() => {
+    webWorkerInstance.onmessage = (message) => {
+      console.log('Obtained data from worker', message.data);
+      const { formattedMessages, overview } = message.data;
+      setFormattedData({
+        ...formattedMessages,
+        chatOverview: {
+          ...overview,
+          totalMessageCount: formattedMessages.userMessages.length,
+          userCount: formattedMessages.userNames.length,
+        },
+        fileSelected: true,
+        isLoading: false,
+      });
+    };
+  }, []);
 
   const readFile = (event) => {
     setFormattedData({ fileSelected: true, isLoading: true });
@@ -22,19 +41,11 @@ const MainPage = () => {
         .trim(),
     };
     const reader = new FileReader();
-    reader.onload = function (e) {
+    reader.onload = async function (e) {
       const contents = e.target.result;
-      const formattedMessages = formatFileData(contents);
-      setFormattedData({
-        ...formattedMessages,
-        chatOverview: {
-          ...overview,
-          totalMessageCount: formattedMessages.userMessages.length,
-          userCount: formattedMessages.userNames.length,
-        },
-        fileSelected: true,
-        isLoading: false,
-      });
+      if (webWorkerInstance) {
+        webWorkerInstance.postMessage({ contents, overview });
+      }
     };
     reader.readAsText(file);
   };
