@@ -156,11 +156,11 @@ export default () => {
           systemMessages.push(parsedMsg);
         } else {
           const lastUserMsgPos = userMessages.length - 1;
-          const text = `${userMessages[lastUserMsgPos].text} ${parsedMsg.text}`;
-          userMessages[lastUserMsgPos] = {
-            ...userMessages[lastUserMsgPos],
-            text,
-          };
+          const lastUserMsgObj = userMessages[lastUserMsgPos];
+          let { text } = lastUserMsgObj;
+          const { dateTime, type, user } = lastUserMsgObj;
+          text = `${userMessages[lastUserMsgPos].text} ${parsedMsg.text}`;
+          userMessages[lastUserMsgPos] = { dateTime, user, text, type };
         }
       }
     });
