@@ -116,11 +116,13 @@ const MainPage = () => {
             </div>
             <div className="card-bg  h-96 w-full">
               {formattedData.isLoading ? (
-                <div>Loading....</div>
+                <div className="flex justify-center items-center h-full">
+                  <Audio />
+                </div>
               ) : (
                 <WordCloud
                   key={formattedData.userMessages}
-                  allMsgs={formattedData.userMessages}
+                  wordFreqPerUser={formattedData.wordFreqPerUser}
                   userNames={formattedData.userNames}
                   isLoading={formattedData.isLoading}
                 />
@@ -149,7 +151,7 @@ const MainPage = () => {
       <footer className="fixed bottom-5 right-5">
         {/* hack for styling browse files button */}
         <label
-          className="rounded-full bg-white h-8 sm:h-12 cursor-pointer w-32 text-purple-800 hover:bg-gray-200
+          className="rounded-full bg-white h-10 sm:h-12 cursor-pointer w-32 text-purple-800 hover:bg-gray-200
                     flex justify-center items-center"
         >
           <svg

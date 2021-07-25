@@ -22,16 +22,10 @@ function getWordCloudComponent(words) {
   return <ReactWordcloud words={words} options={options} />;
 }
 
-const getWordFrequency = (allMsgs, selectedUser) => {
-  let wordFreqObject = getWrdFrequency(allMsgs, selectedUser);
-  wordFreqObject = Object.entries(wordFreqObject).sort(
-    ([, valueA], [, valueB]) => valueB > valueA
-  );
-  wordFreqObject = wordFreqObject.slice(0, 2000);
-  return wordFreqObject.map(([text, value]) => ({ text, value }));
-};
+const getWordFrequency = (wordFreqPerUser, selectedUser) =>
+  wordFreqPerUser[selectedUser];
 
-const WordCloud = ({ allMsgs, userNames, isLoading }) => {
+const WordCloud = ({ wordFreqPerUser, userNames, isLoading }) => {
   const [selectedUser, setSelectedUser] = useState({
     label: 'All Members',
     value: '',
@@ -71,7 +65,9 @@ const WordCloud = ({ allMsgs, userNames, isLoading }) => {
         })}
         onChange={handleChange}
       />
-      {getWordCloudComponent(getWordFrequency(allMsgs, selectedUser.value))}
+      {getWordCloudComponent(
+        getWordFrequency(wordFreqPerUser, selectedUser.value)
+      )}
     </div>
   );
 };
