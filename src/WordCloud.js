@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Select from 'react-select';
 import ReactWordcloud from 'react-wordcloud';
-import { getWrdFrequency } from './helpers/dataFormatters';
+import getWrdFrequency from './helpers/dataFormatters';
 
 function getWordCloudComponent(words) {
   const options = {
