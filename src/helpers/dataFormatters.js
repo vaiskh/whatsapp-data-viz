@@ -1,5 +1,3 @@
-import { COMMON_WORDS, STOP_WORDS, SYSTEM_MSG_INDICATORS } from '../constants';
-
 const getRacingBarData = (allMessages) => {
   const returnObj = [];
   const messages = allMessages.filter((msg) => msg.type !== 'System Msg');
@@ -24,29 +22,4 @@ const getRacingBarData = (allMessages) => {
   return returnObj;
 };
 
-const getWrdFrequency = (allMessages, selectedUser) => {
-  const eachWordCount = {};
-  allMessages.forEach((msg) => {
-    if (selectedUser === '' || selectedUser === msg.user) {
-      msg.text
-        .trim()
-        .split(' ')
-        .forEach((word) => {
-          if (
-            !COMMON_WORDS.find((commonWord) => commonWord === word.trim()) &&
-            !STOP_WORDS.find((stopWord) => stopWord === word.trim())
-          ) {
-            // let currentWord = eachWordCount[word.trim()];
-            if (eachWordCount[word.trim()]) {
-              eachWordCount[word.trim()] += 1;
-            } else if (word !== '') {
-              eachWordCount[word.trim()] = 1;
-            }
-          }
-        });
-    }
-  });
-  return eachWordCount;
-};
-
-export { getRacingBarData, getWrdFrequency };
+export default getRacingBarData;

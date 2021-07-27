@@ -332,18 +332,18 @@ export default () => {
   };
 
   const getWordFequencyPerUser = (allMsgs, userNames) => {
-    wordFreqSelectOptions = [...userNames];
+    wordFreqSelectOptions = [].concat(userNames);
     wordFreqSelectOptions.push(''); // the select option will include an empty option indicating all memebers
     const wordFreqPerUser = {};
     wordFreqSelectOptions.forEach((user) => {
       let wordFreqObject = getWrdFrequency(allMsgs, user);
-      wordFreqObject = Object.entries(wordFreqObject).sort(
-        ([, valueA], [, valueB]) => valueB - valueA
-      );
-      wordFreqObject = wordFreqObject.slice(0, 200);
-      wordFreqPerUser[user] = wordFreqObject.map(([text, value]) => ({
-        text,
-        value,
+      const objEntries = Object.entries(wordFreqObject);
+      wordFreqObject = objEntries.sort((a, b) => b[1] - a[1]);
+      wordFreqObject = wordFreqObject.slice(0, 400);
+      // TODO Find out why using array destructuring syntax in service worker throes error
+      wordFreqPerUser[user] = wordFreqObject.map((word) => ({
+        text: word[0],
+        value: word[1],
       }));
     });
     return wordFreqPerUser;

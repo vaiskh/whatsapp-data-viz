@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Audio, ThreeDots } from 'svg-loaders-react';
+import { ThreeDots, Puff } from 'svg-loaders-react';
 import ImportFileSteps from './ImportFileSteps';
 import SimpleBar from './SimpleBar';
 import WordCloud from './WordCloud';
@@ -13,7 +13,6 @@ const MainPage = () => {
   const [formattedData, setFormattedData] = useState({ fileSelected: false });
   useEffect(() => {
     webWorkerInstance.onmessage = (message) => {
-      console.log('Obtained data from worker', message.data);
       const { formattedMessages, overview } = message.data;
       setFormattedData({
         ...formattedMessages,
@@ -107,7 +106,7 @@ const MainPage = () => {
               <div className="flex-grow">
                 {formattedData.isLoading ? (
                   <div className="flex justify-center items-center h-full">
-                    <Audio />
+                    <Puff />
                   </div>
                 ) : (
                   <SimpleBar userMessageCount={formattedData.msgPerUserCount} />
@@ -117,7 +116,7 @@ const MainPage = () => {
             <div className="card-bg  h-96 w-full">
               {formattedData.isLoading ? (
                 <div className="flex justify-center items-center h-full">
-                  <Audio />
+                  <Puff />
                 </div>
               ) : (
                 <WordCloud
