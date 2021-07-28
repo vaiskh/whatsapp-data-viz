@@ -1,5 +1,5 @@
-# WhatsApp Data Visualization Website Made using React
-Uses raw chat log text file exported from WhatsApp Chat to create meaningfull visualizations
+# WhatsApp Data Visualization Website Made using React and D3.js
+Uses chat log text file exported from WhatsApp chat to create meaningfull visualizations.
 
 ## Available Scripts
 
@@ -25,7 +25,7 @@ Checks for linting errors
 Fixes auto fixable linting errors
 
 
-### Deployment
+## Deployment
 Deployment is done using Heroku cli
 
 Make some changes to the code you just cloned and deploy them to Heroku using Git.
