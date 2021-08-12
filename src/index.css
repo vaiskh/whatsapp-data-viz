@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Staatliches&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,7 +9,6 @@ body {
   gap: 20px;
   background-color: #121212;
   color: #b3b3b3;
-  padding: 20px;
 }
 
 .card-bg {
@@ -34,4 +33,9 @@ body {
 .graph-wrapper {
   height: 100%;
   width: 100%;
+}
+
+.banner-content {
+  font-size: 0.95rem;
+  line-height: 1.5rem;
 }
