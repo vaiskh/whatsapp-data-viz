@@ -81,10 +81,10 @@ const MainPage = () => {
               className="flex py-1 px-3 items-center justify-between"
               style={{ height: '10%' }}
             >
-              <div className="text-sm text-dark font-bold">
+              <div className="text-xs sm:text-sm text-dark font-bold flex-shrink">
                 Total messages per user
               </div>
-              <div className="text-xs text-dark flex items-center font-bold text-right">
+              <div className="text-xs text-dark flex items-center font-bold text-right flex-none">
                 Highest :{' '}
                 {formattedData.isLoading ? (
                   <ThreeDots

@@ -42,7 +42,7 @@ body {
 }
 
 .custom-border {
-  box-shadow: 16px 16px 0px #bbfdce;
+  box-shadow: 4px 4px 0px #bbfdce;
 }
 .pill {
   background: rgba(82, 119, 241, 0.34);
