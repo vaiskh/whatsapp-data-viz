@@ -5,7 +5,17 @@ import getWrdFrequency from './helpers/dataFormatters';
 
 function getWordCloudComponent(words) {
   const options = {
-    colors: ['#7209B7', '#560BAD', '#480CA8', '#3A0CA3', '#3A0CA3', '#4361EE'],
+    // colors: ['#7209B7', '#560BAD', '#480CA8', '#3A0CA3', '#3A0CA3', '#4361EE'],
+    colors: [
+      '#2B44FF',
+      '#324EFC',
+      '#405FF8',
+      '#5277F1',
+      '#658EEB',
+      '#89BCDF',
+      '#A0DAD7',
+      '#BBFDCE',
+    ],
     enableTooltip: true,
     deterministic: false,
     fontFamily: 'impact',
@@ -47,24 +57,30 @@ const WordCloud = ({ wordFreqPerUser, userNames, isLoading }) => {
     }
   };
   return (
-    <div className="p-4">
-      <Select
-        isClearable
-        isSearchable
-        isLoading={isLoading}
-        options={selectOptions}
-        className="w-full sm:w-1/4"
-        value={{ ...selectedUser }}
-        theme={(theme) => ({
-          ...theme,
-          borderRadius: 0,
-          colors: {
-            ...theme.colors,
-            primary: 'black',
-          },
-        })}
-        onChange={handleChange}
-      />
+    <div className="py-1 px-3">
+      <div className="flex items-center">
+        <div className="text-sm text-dark font-bold w-1/2">
+          Most used words{' '}
+        </div>
+        <Select
+          className="select w-1/2"
+          isClearable
+          isSearchable
+          isLoading={isLoading}
+          options={selectOptions}
+          value={{ ...selectedUser }}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            padding: '4px',
+            colors: {
+              ...theme.colors,
+              primary: 'black',
+            },
+          })}
+          onChange={handleChange}
+        />
+      </div>
       {getWordCloudComponent(
         getWordFrequency(wordFreqPerUser, selectedUser.value)
       )}

@@ -1,4 +1,5 @@
 import { ThreeDots } from 'svg-loaders-react';
+import cardImage from './assets/images/card.png';
 
 const checkIfDDMMFormat = (dateString) => {
   if (dateString && Number(dateString.split('/')[0]) > 12) {
@@ -31,62 +32,54 @@ const ChatOverview = ({ isLoading, chatOverview, allMessages }) => {
     ? parseDate(allMessages.pop().dateTime, isDDMMDateFormat).toDateString()
     : '';
   return (
-    <div className=" border-b border-purple-200 pb-4 flex items-center">
-      <div className="flex-1 flex flex-col text-left">
-        <div className="flex gap-1 items-center text-xxs sm:text-xl">
-          Total Messages
-          <div className="text-purple-800">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
-              />
-            </svg>
+    <div className="bg-primary text-black w-full  md:w-1/2 rounded-lg flex">
+      <div className="w-2/3">
+        <div className="p-4">
+          <div className="font-black uppercase py-3">
+            {isLoading ? <ThreeDots width="20" /> : chatOverview.chatName}
+          </div>
+          <div className="flex gap-2">
+            <div className="pill p-2 text-center text-accent200">
+              <div className="text-xs font-normal">Total Messages</div>
+              <div className="text-sm font-bold">
+                {isLoading ? (
+                  <ThreeDots
+                    width="20"
+                    className="inline"
+                    stroke="#000"
+                    fill="#000"
+                    color="#000"
+                  />
+                ) : (
+                  chatOverview.totalMessageCount
+                )}
+              </div>
+            </div>
+            <div className="pill p-2 text-center text-accent200">
+              <div className="text-xs font-normal">User Count</div>
+              <div className="text-sm font-bold">
+                {isLoading ? (
+                  <ThreeDots
+                    width="20"
+                    className="inline"
+                    stroke="#000"
+                    fill="#000"
+                    color="#000"
+                  />
+                ) : (
+                  chatOverview.userCount
+                )}{' '}
+              </div>
+            </div>
           </div>
         </div>
-        <div className="text-xl sm:text-3xl font-heading tracking-wider text-textPrimary">
-          {isLoading ? (
-            <ThreeDots width="20" className="inline" />
-          ) : (
-            chatOverview.totalMessageCount
-          )}
-        </div>
-        <div className="text-xxs sm:text-xs">{`${startDate} - ${endDate}`}</div>
       </div>
-      <div className="flex-1 text-center font-heading text-xl sm:text-3xl text-textPrimary">
-        {isLoading ? <ThreeDots width="20" /> : chatOverview.chatName}
-      </div>
-      <div className="flex-1 text-textPrimary">
-        <div className="flex flex-col items-end">
-          <div className="text-purple-800">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-              />
-            </svg>
-          </div>
-          <div className="text-xl sm:text-2xl font-heading text-right">
-            {isLoading ? <ThreeDots width="20" /> : chatOverview.userCount}{' '}
-            Users
-          </div>
-        </div>
+      <div className="flex items-start" style={{ minWidth: '80px' }}>
+        <img
+          src={cardImage}
+          className="object-cover sm:object-fit h-full float-right"
+          alt="Space Girl"
+        />
       </div>
     </div>
   );

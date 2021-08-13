@@ -15,7 +15,8 @@ module.exports = {
         primary: '#BBFDCE',
         primaryDark: '#65ff91',
         accent: '#2B44FF33',
-        accentDark: '#2f47fc',
+        accent100: '#2f47fc',
+        accent200: '#1C2852',
       },
       fontSize: {
         xxs: '0.70rem',

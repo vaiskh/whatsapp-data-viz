@@ -51,10 +51,16 @@ const SimpleBar = ({ userMessageCount }) => {
     svg.append('g').call(axisLeft(y).tickSize(0)).select('.domain').remove();
     svg.selectAll('g.tick').selectAll('text').style('color', 'grey');
 
+    // change tick line to dotted line
+    svg.selectAll('g.tick').selectAll('line').style('stroke-dasharray', '5,5');
+    // remove x axis line
+    svg.selectAll('path.domain').remove();
+
     // to get range of colors for each bar
     const myColor = scaleLinear()
       .domain([1, y.bandwidth()])
-      .range(['#560BAD', '#4361EE']);
+      // .range(['#560BAD', '#4361EE']);
+      .range(['#BBFDCE', '#2B44FF']);
 
     // Bars
     svg

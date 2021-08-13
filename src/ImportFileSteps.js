@@ -32,7 +32,7 @@ const ImportFileSteps = ({ importChat }) => (
         <div className="text-black font-light px-6 py-3 banner-content">
           <p>
             Whatsapp allows users to &nbsp;
-            <a href="#how-to" className="underline text-accentDark">
+            <a href="#how-to" className="underline text-accent100">
               export chat history
             </a>
             &nbsp; as a *.txt file. WhatsViz parses and analyses this data on
