@@ -1,4 +1,5 @@
-# WhatsApp Data Visualization Website Made using React and D3.js
+# WhatsApp Data Visualization Website Made using React, Tailwind CSS and D3.js
+
 Uses chat log text file exported from WhatsApp chat to create meaningfull visualizations.
 
 ## Available Scripts
@@ -19,19 +20,21 @@ Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 ### `npm run lint`
+
 Checks for linting errors
 
 ### `npm run lint:fix`
+
 Fixes auto fixable linting errors
 
-
 ## Deployment
+
 Deployment is done using Heroku cli
 
 Make some changes to the code you just cloned and deploy them to Heroku using Git.
+
 ```
 $ git add .
 $ git commit -am "make it better"
 $ git push heroku master
 ```
-
